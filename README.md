@@ -3,7 +3,6 @@ FilmFinder
 
 Das Ziel meines Projetes ist es, Nutzern auf einer spontanen Art neue Filme zu empfehlen. Darunter spielen Kriterien wie Genre, Beliebtheit und Empfehlungen eine wichtige Rolle. 
 
-
 Hauptfunktionen: 
 
 - Filteroptionen: Genre (Thriller, Action, Romanze,...)  
@@ -21,7 +20,7 @@ Hauptfunktionen:
 - Favoritenliste (Merkliste) : empfohlene Filme markieren 
 
 
-Inhalte und Seiten: 
+Inhalte und Unterseiten: 
 
 1. Startseite: Button ,,Neuen Film empfehlen´´
 2. Filterseite: 
