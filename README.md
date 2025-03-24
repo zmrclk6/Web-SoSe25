@@ -25,8 +25,7 @@ Inhalte und Seiten:
 
 1. Startseite: Button ,,Neuen Film empfehlen´´
 2. Filterseite: 
--Auswahl nach Genre und nach verfügbarer Streaming-Plattform 
--Zufallsfilm generieren - Button 
+- Auswahl nach Genre und nach verfügbarer Streaming-Plattform, Zufallsfilm generieren und Klick-Button 
 3. Detailseite: 
 - Filmtitel, Beschreibung, Genre 
 - Trailer (aus Youtube)
