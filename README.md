@@ -15,9 +15,7 @@ Hauptfunktionen:
 - Detailansicht: Trailer auf YouTube/ Filmposter ansehen 
 
 
-- Bewertungssystem: 
--Empfehlungen ansehen
--persönliche Kommentare schreiben + mit Sternen bewerten 
+- Bewertungssystem: Empfehlungen ansehen & persönliche Kommentare schreiben + mit Sternen bewerten 
 
 
 - Favoritenliste (Merkliste) : empfohlene Filme markieren 
