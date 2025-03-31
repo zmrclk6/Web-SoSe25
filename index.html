@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Titel der Seite</title>
-  </head>
-  <body>
-    <body style="background: linear-gradient(to right, rgb(244, 82, 82), white);"></body>
-    <h1 style="font-size: 40px; text-align: center;font-family: 'Times New Roman', serif;">FilmFinder</h1>
-
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilmFinder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>FilmFinder</h1>
+        <h2>Finde deinen nächsten Film</h2>
+        <form>
+            <label for="genre">Genre wählen:</label>
+            <select id="genre">
+                <option>Thriller</option>
+                <option>Action</option>
+                <option>Romanze</option>
+                <option>Horror</option>
+                <option>Komödie</option>
+            </select>
+            
+            <label for="plattform">Streaming-Plattform wählen:</label>
+            <select id="plattform">
+                <option>Netflix</option>
+                <option>Disney+</option>
+                <option>Prime Video</option>
+                <option>YouTube</option>
+                <option>Sky</option>
+            </select>
+            
+            <button type="submit">Neuen Film empfehlen</button>
+        </form>
+</body>
 </html>
