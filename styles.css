@@ -1,22 +1,47 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family:"Helvetica", sans-serif;
   background: linear-gradient(to bottom right, rgb(130, 36, 39), rgb(91, 7, 7));
   text-align: center;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  color: white;
+  color: white; 
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://e0.pxfuel.com/wallpapers/442/396/desktop-wallpaper-film-posters-collage-movies-resolution.jpg);
+  background-size: cover;
+  background-position: center;
+
+}
+
+@keyframes pulseGlow {
+  0% {
+      text-shadow: 0 0 5px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255, 0, 0, 0.4);
+      transform: scale(1);
+  }
+  50% {
+      text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 0.8);
+      transform: scale(1.05);
+  }
+  100% {
+      text-shadow: 0 0 5px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255, 0, 0, 0.4);
+      transform: scale(1);
+  }
 }
 
 h1 {
-  font-size: 3em;
-  margin-bottom: 80px;
+  font-size: 60px;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(108, 4, 4);
+  text-transform: uppercase;
+  animation: pulseGlow 4s infinite ease-in-out;
 }
-
+p{
+  font-family: "Georgia", serif;
+  font-size: 4em;
+  margin-top: 60px;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -36,16 +61,53 @@ input, select, button {
 
 input, select {
   background: rgba(255, 255, 255, 0.8);
-  color: rgb(91, 7, 7);
+  color:  rgb(108, 4, 4);
 }
 
 button {
-  background-color: rgb(74, 11, 11);
+  background-color:  rgb(108, 4, 4);
   color: white;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 button:hover {
-  background-color: rgb(74, 11, 11);
+  background-color:  rgb(108, 4, 4);
 }
+
+.footer {
+  color:  rgb(108, 4, 4);
+  height: 80px;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  font-size: 12px; 
+  width: 100%;  
+  position: relative;  
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.footer-section {
+  display: flex;
+  align-items: center;
+}
+
+.footer-section a {
+  text-decoration: none;
+  color: white; 
+  margin: 0 15px;
+  font-size: 12px;  
+}
+
+.footer-section a:hover {
+  color:  rgb(108, 4, 4);
+}
+
