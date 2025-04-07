@@ -1,32 +1,17 @@
 body {
-  font-family:"Helvetica", sans-serif;
-  text-align: center; /*Text zentrieren*/
+  font-family: "Helvetica", sans-serif;
+  text-align: center;/*Text zentrieren*/
   display: flex; /*body-Container zu einem Flexbox-Container*/
-  flex-direction: column; /*vertikal richten*/
-  align-items: center; /*horizontal zentrieren*/
+  flex-direction: column;/*vertikal richten*/
+  align-items: center;/*horizontal zentrieren*/
   justify-content: center; /*vertikal zentrieren*/ 
-  color: white; 
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://e0.pxfuel.com/wallpapers/442/396/desktop-wallpaper-film-posters-collage-movies-resolution.jpg);
-  background-size: cover; /*Skalierung des Gesamten*/ 
+  color: white;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url(https://e0.pxfuel.com/wallpapers/442/396/desktop-wallpaper-film-posters-collage-movies-resolution.jpg);
+  background-size: cover;/*Skalierung des Gesamten*/ 
   background-position: center;
-  min-height: 100vh; /*gesamte Bildschirmhöhe*/ 
-  height: auto /* Verhindert, dass der body unnötig in der Höhe eingeschränkt wird*/
-  
-}
-
-@keyframes pulseGlow {
-  0% {
-      text-shadow: 0 0 5px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255, 0, 0, 0.4);
-      transform: scale(1);
-  }
-  50% {
-      text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 0.8);
-      transform: scale(1.05);
-  }
-  100% {
-      text-shadow: 0 0 5px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255, 0, 0, 0.4);
-      transform: scale(1);
-  }
+  min-height: 100vh;/*gesamte Bildschirmhöhe*/ 
+  padding-bottom: 100px; /* Platz für Footer */
 }
 
 h1 {
@@ -34,10 +19,24 @@ h1 {
   font-weight: bold;
   text-align: center;
   color: rgb(108, 4, 4);
-  text-transform: uppercase;
+  text-transform: uppercase; /*groß*/ 
+}
+
+.animated-title {
   animation: pulseGlow 4s infinite ease-in-out;
 }
 
+h2, h3 {
+  color: white;
+  margin: 10px;
+}
+
+p {
+  max-width: 600px; /*maximale Breite*/ 
+  margin: 10px auto; /*zentriert*/ 
+  font-size: 16px;
+  line-height: 1.5;
+}
 
 form {
   display: flex;
@@ -48,24 +47,24 @@ form {
 }
 
 input, select, button {
-  margin: 30px; /*Abstand zwischen Elementen*/ 
-  padding: 12px; /*Innenabstand*/ 
-  width: 100%; /*volle Breite*/
+  margin: 30px;/*Abstand zwischen Elementen*/ 
+  padding: 12px;/*Innenabstand*/ 
+  width: 100%;/*volle Breite*/
   border-radius: 25px; /*abgerundete Ecken*/
-  border: none; /*keine Standardumrandung*/
+  border: none;/*keine Standardumrandung*/
   font-size: 1em;
 }
 
 input, select {
   background: rgba(255, 255, 255, 0.8);
-  color:  rgb(108, 4, 4);
+  color: rgb(108, 4, 4);
 }
 
 button {
-  background-color:  rgb(108, 4, 4);
+  background-color: rgb(108, 4, 4);
   color: white;
-  cursor: pointer; /*Mauszeiger als Hand*/
-  transition: background 0.3s ease; /*Übergnag bei Hover-Effekt*/
+  cursor: pointer;/*Mauszeiger als Hand*/
+  transition: background 0.3s ease;/*Übergnag bei Hover-Effekt*/
 }
 
 button:hover {
@@ -73,17 +72,22 @@ button:hover {
 }
 
 .footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   color: white;
   font-size: 14px;
+  /*ganz unten*/
 }
-
 
 .footer-content {
   display: flex;
-  justify-content: center;  
+  justify-content: center;
   align-items: center;
   width: 100%;
   padding: 20px;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .footer-section {
@@ -93,12 +97,26 @@ button:hover {
 
 .footer-section a {
   text-decoration: none; /*Keine Unterstreichung*/
-  color: white; 
+  color: white;
   margin: 15px;
-  font-size: 12px;  
+  font-size: 14px;
 }
 
 .footer-section a:hover {
-  color:  rgb(108, 4, 4);
+  color: rgb(79, 3, 3);
 }
 
+@keyframes pulseGlow {
+  0% {
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255, 0, 0, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 0.8);
+    transform: scale(1.05);
+  }
+  100% {
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255, 0, 0, 0.4);
+    transform: scale(1);
+  }
+}
