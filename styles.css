@@ -4,10 +4,10 @@ body {
   display: flex; /*body-Container zu einem Flexbox-Container*/
   flex-direction: column;/*vertikal richten*/
   align-items: center;/*horizontal zentrieren*/
-  justify-content: center; /*vertikal zentrieren*/ 
+  justify-content: space-between; /*Inhalt und Footer trennen*/ 
   color: white;
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-    url(https://e0.pxfuel.com/wallpapers/442/396/desktop-wallpaper-film-posters-collage-movies-resolution.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url(https://m7cdn.io/canalplus/at/img/blog/blogimg.jpg);
   background-size: cover;/*Skalierung des Gesamten*/ 
   background-position: center;
   min-height: 100vh;/*gesamte Bildschirmhöhe*/ 
@@ -72,7 +72,7 @@ button:hover {
 }
 
 .footer {
-  position: absolute;
+
   bottom: 0;
   left: 0;
   right: 0;
@@ -87,7 +87,6 @@ button:hover {
   align-items: center;
   width: 100%;
   padding: 20px;
-  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .footer-section {
@@ -115,8 +114,80 @@ button:hover {
     text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 0.8);
     transform: scale(1.05);
   }
-  100% {
+  100%{
     text-shadow: 0 0 5px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255, 0, 0, 0.4);
     transform: scale(1);
   }
 }
+.empfehlungsliste {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 20px;
+  max-width: 600px;
+  text-align: left;
+  color: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.empfehlungsliste ul {
+  list-style: none;
+  padding: 0;
+}
+
+.empfehlungsliste li {
+  margin: 10px 0;
+}
+.film-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.filmkarte {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  width: 200px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.poster {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.filmkarte h3 {
+  font-size: 18px;
+  margin: 10px 0;
+  color: white;
+}
+
+.filmkarte a {
+  text-decoration: none;
+  color: #ff5555;
+  font-weight: bold;
+}
+.poster {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.filmkarte {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem;
+  display: inline-block;
+  text-align: center;
+  width: 220px;
+}
+.filmkarte img {
+  border-radius: 5px;
+}
+
+

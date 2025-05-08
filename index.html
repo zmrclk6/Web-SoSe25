@@ -5,50 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FilmFinder</title>
     <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
     <h1 class="animated-title">FilmFinder</h1>
-        <h2>Finde die besten Filme für deine Movie-Night !</h2>
-        <form>
-            <label for="genre">Genre wählen:</label>
-            <select id="genre">
-                <option>Thriller</option>
-                <option>Action</option>
-                <option>Romanze</option>
-                <option>Horror</option>
-                <option>Komödie</option>
-                <option>Fantasy</option>
-                <option>Drama</option>
+    <h2>Finde die besten Filme für deine Movie-Night !</h2>
+    <form action="empfehlungen.html" method="GET">
+    <label for="genre">Genre wählen:</label>
+    <select id="genre" name="genre">
+        <option>Thriller</option>
+        <option>Action</option>
+        <option>Romanze</option>
+        <option>Horror</option>
+        <option>Komödie</option>
+        <option>Drama</option>
 
 
-            </select>
-            
-            <label for="plattform">Streaming-Plattform wählen:</label>
-            <select id="plattform">
-                <option>Netflix</option>
-                <option>Disney+</option>
-                <option>Prime Video</option>
-                <option>YouTube</option>
-                <option>Sky</option>
-                <option>AppleTV+</option>
-                <option>WOW</option>
-                <option>RTL+</option>
-                <option>DAZN</option>
-                <option>Paramount+</option>
-                <option>discovery+</option>
-            </select>
-            
-            <button type="submit">Neuen Film empfehlen</button>
-        </form>
-        <footer class="footer">
-            <div class="footer-content">
-              <div class="footer-section links">
-                <a href="index.html">Home</a>
-                <a href="ueber-uns.html">Über uns</a>
-                <a href="kontakt.html">Kontakt</a>
-                <a href="impressum.html">Impressum</a>
-              </div>
-            </div>
-          </footer>
-        </body>
-        </html>
+    </select>
+    
+    <label for="plattform">Streaming-Plattform wählen:</label>
+    <select id="plattform" name="plattform">
+        <option>Netflix</option>
+        <option>Disney+</option>
+        <option>Prime Video</option>
+    </select>
+    
+    <button type="submit">Neuen Film empfehlen</button>
+</form>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section links">
+        <a href="index.html">Home</a>
+        <a href="ueber-uns.html">Über uns</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a href="impressum.html">Impressum</a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
