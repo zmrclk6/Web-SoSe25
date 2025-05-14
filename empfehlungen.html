@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="merkliste-container">
+    <a href="merkliste.html" class="merkliste-text">Zur Merkliste</a>
+    <a href="merkliste.html" class="merkliste-icon" aria-label="Zur Merkliste">⭐️</a>
+  </div>
   <h1 class="animated-title">Deine Film-Empfehlungen</h1>
   <div class="empfehlungsliste" id="ergebnis"></div>
 
@@ -20,7 +24,6 @@
       </div>
     </div>
   </footer>
-
   <script>
     const params = new URLSearchParams(window.location.search);
     const genre = params.get("genre")?.toLowerCase();
@@ -63,7 +66,7 @@
         "disney+": [
           {
             titel: "Gone Girl",
-            poster: "https://m.media-amazon.com/images/I/51DvhBivZoL._AC_UF1000,1000_QL80_.jpg",
+            poster: "https://i.pinimg.com/564x/3e/e8/bc/3ee8bcc498f9515a8ef4054891978af7.jpg",
             trailer: "https://www.youtube.com/watch?v=2-_-1nJf8Vg"
           },
           {
@@ -73,7 +76,7 @@
           },
           {
             titel: "No Exit",
-            poster: "https://lh3.googleusercontent.com/proxy/XQo36E9sDdyaaVcGRx9zDM61MdS4F8aXv86YFx5sQepGSX5tN5vAyM1PmYwvm3M1OwvfTKT9UvART_uQZD5xeo9S8wkPJdMjTWYW1A52Gde3Qw",
+            poster: "https://m.media-amazon.com/images/I/61p-jhvcqZL.jpg",
             trailer: "https://youtu.be/84YnYDGjxBI?si=h5j2MzURcMK2C-lj"
           },
           {
@@ -190,6 +193,11 @@
           titel: "Winterbucht",
             poster: "https://de.web.img2.acsta.net/c_310_420/pictures/21/09/03/11/44/1708916.jpg",
             trailer: "https://youtu.be/WRPc5Jf_SvE?si=zcWrh3DRf4Q3PSKu"
+          },
+          {
+          titel: "To All the Boys I’ve Loved Before",
+            poster: "https://static1.tribute.ca/poster/660x980/to-all-the-boys-ive-loved-before-netflix-129946.jpg",
+            trailer: "https://youtu.be/wCr9pgDdBKY?si=HE9oLkccHGi7fB9Q"
           },
         ],
         "disney+": [
@@ -408,33 +416,55 @@
       },
     };
 
-    const ergebnisDiv = document.getElementById("ergebnis");
+  
+  const ergebnisDiv = document.getElementById("ergebnis");
 
-    if (daten[genre] && daten[genre][plattform]) {
-      const filme = daten[genre][plattform];
-      const genreName = genre.charAt(0).toUpperCase() + genre.slice(1);
-      const plattformName = plattform.charAt(0).toUpperCase() + plattform.slice(1);
+  if (daten[genre] && daten[genre][plattform]) {
+    const filme = daten[genre][plattform];
+    const genreName = genre.charAt(0).toUpperCase() + genre.slice(1);
+    const plattformName = plattform.charAt(0).toUpperCase() + plattform.slice(1);
 
-      ergebnisDiv.innerHTML = `<h2>${genreName} auf ${plattformName}</h2><div class="film-grid"></div>`;
+    ergebnisDiv.innerHTML = `
+      <h2>${genreName} auf ${plattformName}</h2>
+      <div class="film-grid"></div>
+    `;
 
-      const grid = ergebnisDiv.querySelector(".film-grid");
-      filme.forEach(film => {
-        const filmElement = document.createElement("div");
-        filmElement.className = "filmkarte";
-        filmElement.innerHTML = `
-          <img src="${film.poster}" alt="${film.titel}" class="poster">
-          <h3>${film.titel}</h3>
-          <a href="${film.trailer}" target="_blank">▶ Trailer ansehen</a>
-        `;
-        grid.appendChild(filmElement);
-      });
-    } else {
-      ergebnisDiv.innerHTML = `
-        <h2>Keine Empfehlungen gefunden</h2>
-        <p>Für die Kombination <strong>${genre}</strong> und <strong>${plattform}</strong> liegen aktuell keine Filme vor.</p>
-        <p><a href="index.html" style="color:#fff; text-decoration:underline;">Zurück zur Auswahl</a></p>
+    const grid = ergebnisDiv.querySelector(".film-grid");
+
+    filme.forEach(film => {
+      const filmElement = document.createElement("div");
+      filmElement.className = "filmkarte";
+      filmElement.innerHTML = `
+        <img src="${film.poster}" alt="${film.titel}" class="poster">
+        <h3>${film.titel}</h3>
+        <a href="${film.trailer}" target="_blank">▶ Trailer ansehen</a>
+        <button class="merken-btn">📌 Zur Merkliste</button>
       `;
+      
+      // Hier holen wir den Button aus filmElement
+      const button = filmElement.querySelector(".merken-btn");
+      button.addEventListener("click", () => zurMerklisteHinzufuegen(film));
+
+      // Element ins Grid einfügen
+      grid.appendChild(filmElement);
+    });
+  } else {
+    ergebnisDiv.innerHTML = `
+      <h2>Keine Empfehlungen gefunden</h2>
+      <p>Für die Kombination <strong>${genre}</strong> und <strong>${plattform}</strong> liegen aktuell keine Filme vor.</p>
+      <p><a href="index.html" style="color:#fff; text-decoration:underline;">Zurück zur Auswahl</a></p>
+    `;
+  }
+
+  function zurMerklisteHinzufuegen(film) {
+    const gespeicherte = JSON.parse(localStorage.getItem("merkliste")) || [];
+
+    if (!gespeicherte.some(f => f.titel === film.titel)) {
+      gespeicherte.push(film);
+      localStorage.setItem("merkliste", JSON.stringify(gespeicherte));
+      alert(`"${film.titel}" wurde zur Merkliste hinzugefügt!`);
+    } else {
+      alert(`"${film.titel}" ist bereits in deiner Merkliste.`);
     }
-  </script>
-</body>
-</html>
+  }
+</script>

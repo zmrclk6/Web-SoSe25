@@ -1,17 +1,17 @@
 body {
   font-family: "Helvetica", sans-serif;
-  text-align: center;/*Text zentrieren*/
-  display: flex; /*body-Container zu einem Flexbox-Container*/
-  flex-direction: column;/*vertikal richten*/
-  align-items: center;/*horizontal zentrieren*/
-  justify-content: space-between; /*Inhalt und Footer trennen*/ 
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   color: white;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(https://m7cdn.io/canalplus/at/img/blog/blogimg.jpg);
-  background-size: cover;/*Skalierung des Gesamten*/ 
+  background-size: cover;
   background-position: center;
-  min-height: 100vh;/*gesamte Bildschirmhöhe*/ 
-  padding-bottom: 100px; /* Platz für Footer */
+  min-height: 100vh;
+  padding-bottom: 100px;
 }
 
 h1 {
@@ -19,7 +19,7 @@ h1 {
   font-weight: bold;
   text-align: center;
   color: rgb(108, 4, 4);
-  text-transform: uppercase; /*groß*/ 
+  text-transform: uppercase;
 }
 
 .animated-title {
@@ -32,8 +32,8 @@ h2, h3 {
 }
 
 p {
-  max-width: 600px; /*maximale Breite*/ 
-  margin: 10px auto; /*zentriert*/ 
+  max-width: 600px;
+  margin: 10px auto;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -47,11 +47,11 @@ form {
 }
 
 input, select, button {
-  margin: 30px;/*Abstand zwischen Elementen*/ 
-  padding: 12px;/*Innenabstand*/ 
-  width: 100%;/*volle Breite*/
-  border-radius: 25px; /*abgerundete Ecken*/
-  border: none;/*keine Standardumrandung*/
+  margin: 30px;
+  padding: 12px;
+  width: 100%;
+  border-radius: 25px;
+  border: none;
   font-size: 1em;
 }
 
@@ -63,8 +63,8 @@ input, select {
 button {
   background-color: rgb(108, 4, 4);
   color: white;
-  cursor: pointer;/*Mauszeiger als Hand*/
-  transition: background 0.3s ease;/*Übergnag bei Hover-Effekt*/
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 button:hover {
@@ -72,13 +72,11 @@ button:hover {
 }
 
 .footer {
-
   bottom: 0;
   left: 0;
   right: 0;
   color: white;
   font-size: 14px;
-  /*ganz unten*/
 }
 
 .footer-content {
@@ -95,7 +93,7 @@ button:hover {
 }
 
 .footer-section a {
-  text-decoration: none; /*Keine Unterstreichung*/
+  text-decoration: none;
   color: white;
   margin: 15px;
   font-size: 14px;
@@ -114,11 +112,12 @@ button:hover {
     text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 0.8);
     transform: scale(1.05);
   }
-  100%{
+  100% {
     text-shadow: 0 0 5px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255, 0, 0, 0.4);
     transform: scale(1);
   }
 }
+
 .empfehlungsliste {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -139,55 +138,130 @@ button:hover {
   margin: 10px 0;
 }
 .film-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  margin: 40px auto;
+  padding: 0 20px;
+  max-width: 1200px;
 }
 
 .filmkarte {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 15px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 20px;
   text-align: center;
-  width: 200px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  width: 100%;
+  max-width: 240px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 500px; /* Optional: gleiche Höhe für alle Karten */
+}
+
+
+.filmkarte:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 85, 85, 0.4);
 }
 
 .poster {
   width: 100%;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  height: 320px;           /* feste Höhe */
+  object-fit: cover;       /* Bild wird beschnitten, behält aber Seitenverhältnis */
+  border-radius: 15px;
+  display: block;
 }
 
+
 .filmkarte h3 {
-  font-size: 18px;
-  margin: 10px 0;
-  color: white;
+  font-size: 20px;
+  margin: 15px 0 10px;
+  color: #ffffff;
 }
 
 .filmkarte a {
   text-decoration: none;
   color: #ff5555;
   font-weight: bold;
+  font-size: 14px;
+  transition: color 0.3s ease;
 }
-.poster {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 10px;
+
+.filmkarte a:hover {
+  color: #ff2222;
 }
-.filmkarte {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 1rem;
-  margin: 1rem;
-  display: inline-block;
+
+button.entfernen-btn {
+  margin: 12px auto 0 auto;       /* zentriert horizontal */
+  background: #ff4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  display: block;                 /* wichtig für margin auto */
+  width: 60%;                     /* oder auto / 150px */
   text-align: center;
-  width: 220px;
-}
-.filmkarte img {
-  border-radius: 5px;
 }
 
 
+a.zurueck {
+  display: block;
+  margin-top: 30px;
+  color: #fff;
+  text-align: center;
+  text-decoration: underline;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.filmkarte .merken-btn {
+  margin: 12px auto 0 auto;      /* zentriert horizontal */
+  background-color: #6c0404;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 60%;                    /* oder auto / 200px */
+  display: block;                /* wichtig für margin auto */
+  text-align: center;
+}
+.filmkarte .merken-btn:hover {
+  background-color: #960a0a;
+}
+.merkliste-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1000; /* stellt sicher, dass es oben bleibt */
+}
+
+
+.merkliste-text {
+  color: #ffffff;
+  margin-right: 10px; /* Abstand zwischen Text und Symbol */
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none; /* Unterstreichung entfernt */
+}
+
+.merkliste-icon {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 20px; /* Icon darf ruhig etwas größer sein */
+  text-decoration: none; /* Unterstreichung entfernt */
+}
