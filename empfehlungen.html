@@ -8,8 +8,9 @@
 </head>
 <body>
   <div class="merkliste-container">
-    <a href="merkliste.html" class="merkliste-text">Zur Merkliste</a>
-    <a href="merkliste.html" class="merkliste-icon" aria-label="Zur Merkliste">⭐️</a>
+            <a href="merkliste.html" class="merkliste-icon" aria-label="Zur Merkliste">
+            <span class="visually-hidden">⭐️Zur Merkliste⭐️</span>
+          </a>
   </div>
   <h1 class="animated-title">Deine Film-Empfehlungen</h1>
   <div class="empfehlungsliste" id="ergebnis"></div>
@@ -25,9 +26,11 @@
     </div>
   </footer>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const genre = params.get("genre")?.toLowerCase();
-    const plattform = params.get("plattform")?.toLowerCase();
+  const params = new URLSearchParams(window.location.search);
+  const genre = params.get("genre")?.toLowerCase();
+  const plattform = params.get("plattform")?.toLowerCase();
+  const ergebnisContainer = document.getElementById("ergebnis");
+  ergebnisContainer.innerHTML = "";
 
     const daten = {
       thriller: {
@@ -467,4 +470,30 @@
       alert(`"${film.titel}" ist bereits in deiner Merkliste.`);
     }
   }
+  if (daten[genre] && daten[genre][plattform]) {
+    const filme = daten[genre][plattform];
+    const ergebnisDiv = document.getElementById("ergebnis");
+  }
+  const container = document.getElementById("ergebnis");
+
+  if (genre && plattform && daten[genre] && daten[genre][plattform]) {
+    const filme = daten[genre][plattform];
+
+    filme.forEach(film => {
+      const filmElement = document.createElement("div");
+      filmElement.className = "film";
+
+      filmElement.innerHTML = `
+        <h2>${film.titel}</h2>
+        <img src="${film.poster}" alt="${film.titel} Poster" class="film-poster">
+        <p><a href="${film.trailer}" target="_blank" rel="noopener noreferrer">🎬 Trailer ansehen</a></p>
+      `;
+
+      container.appendChild(filmElement);
+    });
+  } else {
+    container.innerHTML = "<p>Keine Empfehlungen gefunden. Bitte Genre und Plattform korrekt angeben.</p>";
+  }
+
+  
 </script>

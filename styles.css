@@ -10,6 +10,7 @@ body {
     url(https://m7cdn.io/canalplus/at/img/blog/blogimg.jpg);
   background-size: cover;
   background-position: center;
+  background-attachment: fixed; /* Optional für Parallax-Effekt */
   min-height: 100vh;
   padding-bottom: 100px;
 }
@@ -240,6 +241,14 @@ a.zurueck {
 .filmkarte .merken-btn:hover {
   background-color: #960a0a;
 }
+.filmkarte .merken-btn,
+button.entfernen-btn {
+  display: block;
+  margin: 12px auto 0 auto;
+  width: 60%;
+  text-align: center;
+}
+
 .merkliste-container {
   position: absolute;
   top: 20px;
@@ -264,4 +273,17 @@ a.zurueck {
   font-weight: bold;
   font-size: 20px; /* Icon darf ruhig etwas größer sein */
   text-decoration: none; /* Unterstreichung entfernt */
+}
+@media (max-width: 500px) {
+  h1 {
+    font-size: 36px;
+  }
+
+  .filmkarte {
+    height: auto;
+  }
+
+  .poster {
+    height: auto;
+  }
 }
