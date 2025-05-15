@@ -121,27 +121,28 @@ button:hover {
 
 .empfehlungsliste {
   background-color: rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 20px;
+  padding: 20px;    /* Innenabstand */
+  margin: 20px;     /* Außenabstand */
   border-radius: 20px;
-  max-width: 600px;
+  max-width: 600px;  /* maximale Breite */
   text-align: left;
   color: white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
-}
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);  /* Schatten um das Element */
 
+}
+ /* Liste der Filme */
 .empfehlungsliste ul {
   list-style: none;
   padding: 0;
 }
 
 .empfehlungsliste li {
-  margin: 10px 0;
+  margin: 10px;
 }
 .film-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));  /* flexible Spalten */
+  gap: 30px;   /* Abstand zwischen Karten */
   justify-items: center;
   margin: 40px auto;
   padding: 0 20px;
@@ -149,7 +150,7 @@ button:hover {
 }
 
 .filmkarte {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.08);  /* durchscheinender Hintergrund */
   border-radius: 20px;
   padding: 20px;
   text-align: center;
@@ -248,7 +249,7 @@ button.entfernen-btn {
   width: 60%;
   text-align: center;
 }
-
+/*Merkliste-Symbol oben rechts*/
 .merkliste-container {
   position: absolute;
   top: 20px;
@@ -274,6 +275,7 @@ button.entfernen-btn {
   font-size: 20px; /* Icon darf ruhig etwas größer sein */
   text-decoration: none; /* Unterstreichung entfernt */
 }
+/*mobile Optimierung*/ 
 @media (max-width: 500px) {
   h1 {
     font-size: 36px;

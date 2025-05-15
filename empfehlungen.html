@@ -27,8 +27,8 @@
   </footer>
   <script>
   const params = new URLSearchParams(window.location.search);
-  const genre = params.get("genre")?.toLowerCase();
-  const plattform = params.get("plattform")?.toLowerCase();
+  const genre = params.get("genre")?.toLowerCase().trim();
+  const plattform = params.get("plattform")?.toLowerCase().trim();
   const ergebnisContainer = document.getElementById("ergebnis");
   ergebnisContainer.innerHTML = "";
 
@@ -469,31 +469,6 @@
     } else {
       alert(`"${film.titel}" ist bereits in deiner Merkliste.`);
     }
-  }
-  if (daten[genre] && daten[genre][plattform]) {
-    const filme = daten[genre][plattform];
-    const ergebnisDiv = document.getElementById("ergebnis");
-  }
-  const container = document.getElementById("ergebnis");
+  };
 
-  if (genre && plattform && daten[genre] && daten[genre][plattform]) {
-    const filme = daten[genre][plattform];
-
-    filme.forEach(film => {
-      const filmElement = document.createElement("div");
-      filmElement.className = "film";
-
-      filmElement.innerHTML = `
-        <h2>${film.titel}</h2>
-        <img src="${film.poster}" alt="${film.titel} Poster" class="film-poster">
-        <p><a href="${film.trailer}" target="_blank" rel="noopener noreferrer">🎬 Trailer ansehen</a></p>
-      `;
-
-      container.appendChild(filmElement);
-    });
-  } else {
-    container.innerHTML = "<p>Keine Empfehlungen gefunden. Bitte Genre und Plattform korrekt angeben.</p>";
-  }
-
-  
 </script>
