@@ -467,39 +467,3 @@
     'http://localhost:3000/',
     JSON.stringify({ test: "Dies ist ein Test" })
   );
-  async function addStudent(url, jsonString) {
-    const response = await fetch(url, {
-      method: 'post',
-      body: jsonString,
-    });
-  }
-  
-  async function getStudent(studentNr) {
-    const response = await fetch(`http://localhost:3000/student?studentNr=${studentNr}`);
-    const data = await response.json();
-    console.log(data);
-  }
-  
-  async function getAllStudents(): Promise<void> {
-    const response = await fetch('http://localhost:3000/student');
-    const data = await response.json();
-    console.log(data);
-  }
-  
-  async function test() {
-    await addStudent(
-      'http://localhost:3000/student',
-      JSON.stringify({
-        studentNr: 285254,
-        firstName: 'Zümra',
-        lastName: 'Celik',
-        semester: 2,
-        faculty: 'DM',
-        course: 'OMB',
-      })
-    );
-    await getStudent(285254);
-    await getAllStudents();
-  }
-  
-  test();
