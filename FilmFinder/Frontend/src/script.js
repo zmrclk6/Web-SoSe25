@@ -3,8 +3,9 @@
   const genre = params.get("genre")?.toLowerCase().trim();
   const plattform = params.get("plattform")?.toLowerCase().trim();
   const ergebnisContainer = document.getElementById("ergebnis");
+  if (ergebnisContainer) {
   ergebnisContainer.innerHTML = "";
-
+  }
     const daten = {
       thriller: {
         netflix: [
