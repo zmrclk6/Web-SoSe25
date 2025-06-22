@@ -420,7 +420,55 @@
         <a href="${film.trailer}" target="_blank">▶ Trailer ansehen</a>
         <button class="merken-btn">📌 Zur Merkliste</button>
       `;
-      
+  function ladeMerkliste() {
+    const gespeicherte = JSON.parse(localStorage.getItem("merkliste")) || [];
+    const merklisteDiv = document.getElementById("merkliste");
+    merklisteDiv.innerHTML = "";
+
+    const genreFilter = document.getElementById("genre-filter").value;
+    const plattformFilter = document.getElementById("plattform-filter").value;
+
+    const gefiltert = gespeicherte.filter(film => {
+      const genreMatch = !genreFilter || film.genre === genreFilter;
+      const plattformMatch = !plattformFilter || film.plattform === plattformFilter;
+      return genreMatch && plattformMatch;
+    });
+
+    if (gefiltert.length === 0) {
+      merklisteDiv.innerHTML = "<p>Keine Filme entsprechen den ausgewählten Filtern.</p>";
+      return;
+    }
+
+    gefiltert.forEach((film, index) => {
+      const filmEl = document.createElement("div");
+      filmEl.className = "filmkarte";
+      filmEl.innerHTML = `
+        <img src="${film.poster}" alt="${film.titel}" class="poster">
+        <h3>${film.titel}</h3>
+        <p><strong>Genre:</strong> ${film.genre}</p>
+        <p><strong>Plattform:</strong> ${film.plattform}</p>
+        <a href="${film.trailer}" target="_blank">▶ Trailer ansehen</a><br>
+        <button class="entfernen-btn" data-index="${index}">❌ Entfernen</button>
+      `;
+      merklisteDiv.appendChild(filmEl);
+    });
+
+    document.querySelectorAll(".entfernen-btn").forEach(button => {
+      button.addEventListener("click", (e) => {
+        const index = e.target.getAttribute("data-index");
+        gespeicherte.splice(index, 1);
+        localStorage.setItem("merkliste", JSON.stringify(gespeicherte));
+        ladeMerkliste();
+      });
+    });
+  }
+
+  // Filter reagieren auf Änderung
+  document.getElementById("genre-filter").addEventListener("change", ladeMerkliste);
+  document.getElementById("plattform-filter").addEventListener("change", ladeMerkliste);
+
+  ladeMerkliste();
+
       // Hier holen wir den Button aus filmElement
       const button = filmElement.querySelector(".merken-btn");
       button.addEventListener("click", () => zurMerklisteHinzufuegen(film));
