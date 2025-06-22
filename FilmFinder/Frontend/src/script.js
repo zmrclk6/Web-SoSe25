@@ -393,8 +393,6 @@ const ergebnisContainer = document.getElementById("ergebnis");
       ],
     },
   };
-
-
 const ergebnisDiv = document.getElementById("ergebnis");
 
 ergebnisContainer.innerHTML = "";
