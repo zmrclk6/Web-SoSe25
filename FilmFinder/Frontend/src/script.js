@@ -394,8 +394,8 @@ const ergebnisContainer = document.getElementById("ergebnis");
     },
   };
 const ergebnisDiv = document.getElementById("ergebnis");
+ergebnisDiv.innerHTML = "";
 
-ergebnisContainer.innerHTML = "";
 
 if (daten[genre] && daten[genre][plattform]) {
   const filme = daten[genre][plattform];
@@ -458,7 +458,7 @@ console.log('Zwischenzeitlich weiterarbeiten...');
 
 async function sendJsonWithPOST(url, jsonString) {
   const response = await fetch(url, {
-    method: 'post',
+    method: 'POST',
     body: jsonString,
   });
 }
