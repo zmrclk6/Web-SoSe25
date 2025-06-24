@@ -81,5 +81,4 @@ const server = http.createServer(async (request, response) => {
     response.end('Pfad nicht gefunden');
   }
 });
-
 startServer();
