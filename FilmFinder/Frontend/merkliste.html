@@ -12,38 +12,42 @@
 
   <a href="index.html" class="zurueck">⬅ Zurück zur Startseite</a>
   <script>
-    function ladeMerkliste() {
-      const gespeicherte = JSON.parse(localStorage.getItem("merkliste")) || [];
+    async function ladeMerkliste() {
+      const response = await fetch("http://localhost:3000/merkliste");
+      const gespeicherte = await response.json();
+  
       const merklisteDiv = document.getElementById("merkliste");
       merklisteDiv.innerHTML = "";
-
+  
       if (gespeicherte.length === 0) {
         merklisteDiv.innerHTML = "<p>Du hast noch keine Filme in deiner Merkliste.</p>";
         return;
       }
-
+  
       gespeicherte.forEach((film, index) => {
         const filmEl = document.createElement("div");
         filmEl.className = "filmkarte";
         filmEl.innerHTML = `
-          <img src="${film.poster}" alt="${film.titel}" class="poster">
-          <h3>${film.titel}</h3>
-          <a href="${film.trailer}" target="_blank">▶ Trailer ansehen</a><br>
+          <img src="${film.Poster}" alt="${film.Titel}" class="poster">
+          <h3>${film.Titel}</h3>
+          <a href="${film.Trailer}" target="_blank">▶ Trailer ansehen</a><br>
           <button class="entfernen-btn" data-index="${index}">❌ Entfernen</button>
         `;
         merklisteDiv.appendChild(filmEl);
       });
-
-      document.querySelectorAll(".entfernen-btn").forEach(button => {
-        button.addEventListener("click", (e) => {
-          const index = e.target.getAttribute("data-index");
-          gespeicherte.splice(index, 1);
-          localStorage.setItem("merkliste", JSON.stringify(gespeicherte));
-          ladeMerkliste();
-        });
-      });
+  
+      // Löschen einzelner Filme (optional: nur wenn du IDs einbaust)
+      // document.querySelectorAll(".entfernen-btn").forEach(button => {
+      //   button.addEventListener("click", async (e) => {
+      //     const index = e.target.getAttribute("data-index");
+      //     await fetch(`http://localhost:3000/film/${index}`, { method: 'DELETE' });
+      //     ladeMerkliste();
+      //   });
+      // });
     }
+  
     ladeMerkliste();
   </script>
+  
 </body>
 </html>

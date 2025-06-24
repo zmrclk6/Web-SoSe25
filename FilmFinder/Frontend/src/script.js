@@ -431,8 +431,20 @@ const ergebnisContainer = document.getElementById("ergebnis");
     `;
   }
   
-function zurMerklisteHinzufuegen(film) {
-  const gespeicherte = JSON.parse(localStorage.getItem("merkliste")) || [];
+  async function zurMerklisteHinzufuegen(film) {
+    const response = await fetch("http://localhost:3000/merkliste", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(film)
+    });
+  
+    if (response.ok) {
+      alert(`"${film.titel}" wurde zur Merkliste hinzugefügt!`);
+    } else {
+      alert("Fehler beim Hinzufügen zur Merkliste.");
+    }
+  }
+  
 
   if (!gespeicherte.some(f => f.titel === film.titel)) {
     gespeicherte.push(film);
@@ -441,7 +453,6 @@ function zurMerklisteHinzufuegen(film) {
   } else {
     alert(`"${film.titel}" ist bereits in deiner Merkliste.`);
   }
-};
 async function requestTextWithGET(url) {
   const response = await fetch(url);
   console.log('Response:', response); // vollständiges Response-Objekt
@@ -451,3 +462,18 @@ async function requestTextWithGET(url) {
 
 requestTextWithGET('https://heintz-s.github.io/GIS-WS24/test.txt');
 console.log('Zwischenzeitlich weiterarbeiten...');
+function requestTextWithGET(url) {
+  const promise = fetch(url);
+  promise.then(fetchErfolgreich).then(responseTextErfolgreich);
+}
+
+function fetchErfolgreich(response) {
+  console.log('Response', response); // komplettes Response Objekt
+  return response.text();
+}
+
+function responseTextErfolgreich(text) {
+  console.log(text); // Text aus Response Body
+}
+
+requestTextWithGET('https://heintz-s.github.io/GIS-WS24/test.txt');

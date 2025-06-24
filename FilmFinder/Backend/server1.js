@@ -1,56 +1,85 @@
 const http = require('http');
-
-const hostname = '127.0.0.1'; // localhost
-const port = 3000;
-/*const data*/ 
-
-const server = http.createServer((request, response) => {
-  response.statusCode = 200;
-  response.setHeader('Content-Type', 'text/plain');
-  response.setHeader('Access-Control-Allow-Origin', '*'); // bei CORS Fehler 
-  /*response.setHeader("Access-Control-Allow-Methods", "*"); // Erlaubt alle HTTP-Methoden */
-  /*response.setHeader("Access-Control-Allow-Headers", "*"); // Erlaubt das Empfangen von Requests mit Headern, z. B. Content-Type */
-  if (request.method === 'GET') {
-    // Informationen an den Client senden
-    response.setHeader("Content-Type", "application/json");
-    const data = { message: "Hello World"};
-    response.end(JSON.stringify(data));
-}
-if (request.method === 'POST') {
-  // Daten vom Client empfangen
-  let jsonString = '';
-  request.on('data', (data) => {
-    jsonString += data;
-  });
-  request.on('end', () => {
-    console.log(JSON.parse(jsonString));
-  });
-}
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server läuft unter http://${hostname}:${port}/`);
-});
-// SQLite Modul in Node.js Code verwenden
 const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 
-// SQLite Datei angeben
+const hostname = '127.0.0.1';
+const port = 3000;
 const dbFilePath = 'Filme.db';
+let db;
 
-async function main() {
-  // Mit Datenbank verbinden
-  const db = await sqlite.open({
+// Server starten und Datenbank vorbereiten
+async function startServer() {
+  db = await sqlite.open({
     filename: dbFilePath,
     driver: sqlite3.Database,
   });
 
-  // Auf Datenbank zugreifen (z. B. SELECT Befehl)
-  const students = await db.all('SELECT * FROM FilmFinder');
-  console.log(students);
+  // Tabelle anlegen (nur FilmFinder wird verwendet – als Merkliste)
+  await db.run(`CREATE TABLE IF NOT EXISTS FilmFinder (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Titel TEXT,
+    Poster TEXT,
+    Trailer TEXT
+  )`);
 
-  // Verbindung zu Datenbank beenden
-  await db.close();
+  console.log('Tabelle FilmFinder (Merkliste) ist bereit.');
+
+  server.listen(port, hostname, () => {
+    console.log(`Server läuft unter http://${hostname}:${port}/`);
+  });
 }
 
-main();
+const server = http.createServer(async (request, response) => {
+  response.setHeader('Access-Control-Allow-Origin', '*');
+  response.setHeader('Access-Control-Allow-Headers', '*');
+  response.setHeader('Access-Control-Allow-Methods', '*');
+
+  if (request.method === 'OPTIONS') {
+    response.statusCode = 200;
+    response.end();
+    return;
+  }
+
+  const url = new URL(request.url || '', `http://${request.headers.host}`);
+
+  if (url.pathname === '/merkliste') {
+    switch (request.method) {
+      case 'GET': {
+        const gemerkteFilme = await db.all('SELECT * FROM FilmFinder');
+        response.setHeader('Content-Type', 'application/json');
+        response.end(JSON.stringify(gemerkteFilme));
+        break;
+      }
+
+      case 'POST': {
+        let jsonString = '';
+        request.on('data', chunk => jsonString += chunk);
+        request.on('end', async () => {
+          const film = JSON.parse(jsonString);
+          await db.run(
+            'INSERT INTO FilmFinder (Titel, Poster, Trailer) VALUES (?, ?, ?)',
+            [film.Titel, film.Poster, film.Trailer]
+          );
+          console.log('Film zur Merkliste hinzugefügt:', film);
+          response.end('Film zur Merkliste hinzugefügt');
+        });
+        break;
+      }
+
+      case 'DELETE': {
+        await db.run('DELETE FROM FilmFinder');
+        response.end('Merkliste gelöscht');
+        break;
+      }
+
+      default:
+        response.statusCode = 405;
+        response.end('Methode nicht erlaubt');
+    }
+  } else {
+    response.statusCode = 404;
+    response.end('Pfad nicht gefunden');
+  }
+});
+
+startServer();
