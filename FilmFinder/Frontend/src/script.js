@@ -393,46 +393,44 @@ const ergebnisContainer = document.getElementById("ergebnis");
       ],
     },
   };
-const ergebnisDiv = document.getElementById("ergebnis");
-ergebnisDiv.innerHTML = "";
-
-
-if (daten[genre] && daten[genre][plattform]) {
-  const filme = daten[genre][plattform];
-  const genreName = genre.charAt(0).toUpperCase() + genre.slice(1);
-  const plattformName = plattform.charAt(0).toUpperCase() + plattform.slice(1);
-
-  ergebnisDiv.innerHTML = `
-    <h2>${genreName} auf ${plattformName}</h2>
-    <div class="film-grid"></div>
-  `;
-
-  const grid = ergebnisDiv.querySelector(".film-grid");
-
-  filme.forEach(film => {
-    const filmElement = document.createElement("div");
-    filmElement.className = "filmkarte";
-    filmElement.innerHTML = `
-      <img src="${film.poster}" alt="${film.titel}" class="poster">
-      <h3>${film.titel}</h3>
-      <a href="${film.trailer}" target="_blank">▶ Trailer ansehen</a>
-      <button class="merken-btn">📌 Zur Merkliste</button>
-    `
-    // Hier holen wir den Button aus filmElement
-    const button = filmElement.querySelector(".merken-btn");
-    button.addEventListener("click", () => zurMerklisteHinzufuegen(film));
-
-    // Element ins Grid einfügen
-    grid.appendChild(filmElement);
-  });
-} else {
-  ergebnisDiv.innerHTML = `
-    <h2>Keine Empfehlungen gefunden</h2>
-    <p>Für die Kombination <strong>${genre}</strong> und <strong>${plattform}</strong> liegen aktuell keine Filme vor.</p>
-    <p><a href="index.html" style="color:#fff; text-decoration:underline;">Zurück zur Auswahl</a></p>
-  `;
-}
-
+  const ergebnisDiv = document.getElementById("ergebnis");
+  ergebnisDiv.innerHTML = "";
+  
+  // Nur ausführen, wenn genre und plattform gültig sind
+  if (genre && plattform && daten[genre] && daten[genre][plattform]) {
+    const filme = daten[genre][plattform];
+    const genreName = genre.charAt(0).toUpperCase() + genre.slice(1);
+    const plattformName = plattform.charAt(0).toUpperCase() + plattform.slice(1);
+  
+    ergebnisDiv.innerHTML = `
+      <h2>${genreName} auf ${plattformName}</h2>
+      <div class="film-grid"></div>
+    `;
+  
+    const grid = ergebnisDiv.querySelector(".film-grid");
+  
+    filme.forEach(film => {
+      const filmElement = document.createElement("div");
+      filmElement.className = "filmkarte";
+      filmElement.innerHTML = `
+        <img src="${film.poster}" alt="${film.titel}" class="poster">
+        <h3>${film.titel}</h3>
+        <a href="${film.trailer}" target="_blank">▶ Trailer ansehen</a>
+        <button class="merken-btn">📌 Zur Merkliste</button>
+      `;
+      const button = filmElement.querySelector(".merken-btn");
+      button.addEventListener("click", () => zurMerklisteHinzufuegen(film));
+      grid.appendChild(filmElement);
+    });
+  } else if (genre && plattform) {
+    // Nur anzeigen, wenn genre und plattform **gesetzt**, aber keine Daten gefunden wurden
+    ergebnisDiv.innerHTML = `
+      <h2>Keine Empfehlungen gefunden</h2>
+      <p>Für die Kombination <strong>${genre}</strong> und <strong>${plattform}</strong> liegen aktuell keine Filme vor.</p>
+      <p><a href="index.html" style="color:#fff; text-decoration:underline;">Zurück zur Auswahl</a></p>
+    `;
+  }
+  
 function zurMerklisteHinzufuegen(film) {
   const gespeicherte = JSON.parse(localStorage.getItem("merkliste")) || [];
 
@@ -462,7 +460,6 @@ async function sendJsonWithPOST(url, jsonString) {
     body: jsonString,
   });
 }
-
 sendJsonWithPOST(
   'http://localhost:3000/',
   JSON.stringify({ test: "Dies ist ein Test" })
