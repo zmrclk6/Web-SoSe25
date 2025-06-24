@@ -451,16 +451,3 @@ async function requestTextWithGET(url) {
 
 requestTextWithGET('https://heintz-s.github.io/GIS-WS24/test.txt');
 console.log('Zwischenzeitlich weiterarbeiten...');
-
-//Über JavaScript in Browser
-
-async function sendJsonWithPOST(url, jsonString) {
-  const response = await fetch(url, {
-    method: 'POST',
-    body: jsonString,
-  });
-}
-sendJsonWithPOST(
-  'http://localhost:3000/',
-  JSON.stringify({ test: "Dies ist ein Test" })
-);

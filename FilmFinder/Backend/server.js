@@ -56,5 +56,17 @@ const server = http.createServer(async (request, response) => {
     response.end();
   }
 );
+//Über JavaScript in Browser
+
+async function sendJsonWithPOST(url, jsonString) {
+  const response = await fetch(url, {
+    method: 'POST',
+    body: jsonString,
+  });
+}
+sendJsonWithPOST(
+  'http://localhost:3000/',
+  JSON.stringify({ test: "Dies ist ein Test" })
+);
 
 startServer();
