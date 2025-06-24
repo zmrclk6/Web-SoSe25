@@ -444,13 +444,6 @@ const ergebnisContainer = document.getElementById("ergebnis");
       alert("Fehler beim Hinzufügen zur Merkliste.");
     }
   }
-  if (!gespeicherte.some(f => f.titel === film.titel)) {
-    gespeicherte.push(daten);
-    localStorage.setItem("merkliste", JSON.stringify(gespeicherte));
-    alert(`"${film.titel}" wurde zur Merkliste hinzugefügt!`);
-  } else {
-    alert(`"${film.titel}" ist bereits in deiner Merkliste.`);
-  }
 async function requestTextWithGET(url) {
   const response = await fetch(url);
   console.log('Response:', response); // vollständiges Response-Objekt
