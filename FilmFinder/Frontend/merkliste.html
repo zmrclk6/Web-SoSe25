@@ -13,7 +13,7 @@
   <a href="index.html" class="zurueck">⬅ Zurück zur Startseite</a>
   <script>
     async function ladeMerkliste() {
-      const response = await fetch("http://localhost:3000/merkliste");
+      const response = await fetch("http://localhost:3000/merkliste"); //fragt die Merkliste vom lokalen Server (Node.js) ab
       const gespeicherte = await response.json();
   
       const merklisteDiv = document.getElementById("merkliste");
@@ -36,14 +36,6 @@
         merklisteDiv.appendChild(filmEl);
       });
   
-      // Löschen einzelner Filme (optional: nur wenn du IDs einbaust)
-      // document.querySelectorAll(".entfernen-btn").forEach(button => {
-      //   button.addEventListener("click", async (e) => {
-      //     const index = e.target.getAttribute("data-index");
-      //     await fetch(`http://localhost:3000/film/${index}`, { method: 'DELETE' });
-      //     ladeMerkliste();
-      //   });
-      // });
     }
   
     ladeMerkliste();
