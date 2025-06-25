@@ -1,91 +1,62 @@
-const http = require('http');
-const sqlite3 = require('sqlite3');
-const sqlite = require('sqlite');
+const express = require("express");
+const fs = require("fs");
+const cors = require("cors");
+const path = require("path");
+const app = express();
+const PORT = 3000;
 
-const hostname = '127.0.0.1';
-const port = 3000;
-const dbFilePath = 'Filme.db';
-let db;
+const datenPfad = path.join(__dirname, "merkliste.json");
 
-// Server starten und Datenbank vorbereiten
-async function startServer() {
-  db = await sqlite.open({
-    filename: dbFilePath,
-    driver: sqlite3.Database,
-  });
+app.use(cors());
+app.use(express.json());
 
-  // Tabelle anlegen (nur FilmFinder wird verwendet – als Merkliste)
-  await db.run(`CREATE TABLE IF NOT EXISTS FilmFinder (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Titel TEXT,
-    Poster TEXT,
-    Trailer TEXT
-  )`);
-
-  console.log('Tabelle FilmFinder (Merkliste) ist bereit.');
-
-  server.listen(port, hostname, () => {
-    console.log(`Server läuft unter http://${hostname}:${port}/`);
-  });
+// Merkliste lesen
+function leseMerkliste() {
+  if (!fs.existsSync(datenPfad)) return [];
+  const daten = fs.readFileSync(datenPfad);
+  return JSON.parse(daten);
 }
-const server = http.createServer(async (request, response) => {
-  response.setHeader('Access-Control-Allow-Origin', '*');
-  response.setHeader('Access-Control-Allow-Headers', '*');
-  response.setHeader('Access-Control-Allow-Methods', '*');
 
-  if (request.method === 'OPTIONS') {
-    response.statusCode = 200;
-    response.end();
-    return;
+// Merkliste speichern
+function speichereMerkliste(liste) {
+  fs.writeFileSync(datenPfad, JSON.stringify(liste, null, 2));
+}
+
+// GET: Alle Filme
+app.get("/merkliste", (req, res) => {
+  const liste = leseMerkliste();
+  res.json(liste);
+});
+
+// POST: Film hinzufügen
+app.post("/merkliste", (req, res) => {
+  const liste = leseMerkliste();
+  const neuerFilm = {
+    id: Date.now().toString(), // ID als String
+    Titel: req.body.Titel,
+    Poster: req.body.Poster,
+    Trailer: req.body.Trailer,
+  };
+  liste.push(neuerFilm);
+  speichereMerkliste(liste);
+  res.status(201).json(neuerFilm);
+});
+
+// DELETE: Film entfernen
+app.delete("/merkliste/:id", (req, res) => {
+  let liste = leseMerkliste();
+  const id = req.params.id;
+  const neueListe = liste.filter((film) => film.id !== id);
+
+  if (liste.length === neueListe.length) {
+    return res.status(404).send("Film nicht gefunden");
   }
 
-  const url = new URL(request.url || '', `http://${request.headers.host}`);
-
-  if (url.pathname === '/merkliste') {
-    switch (request.method) {
-      case 'GET': {
-        const gemerkteFilme = await db.all('SELECT * FROM FilmFinder');
-        response.setHeader('Content-Type', 'application/json');
-        response.end(JSON.stringify(gemerkteFilme));
-        break;
-      }
-
-      case 'POST': {
-        let jsonString = '';
-        request.on('data', chunk => jsonString += chunk);
-        request.on('end', async () => {
-          const film = JSON.parse(jsonString);
-          await db.run(
-            'INSERT INTO FilmFinder (Titel, Poster, Trailer) VALUES (?, ?, ?)',
-            [film.Titel, film.Poster, film.Trailer]
-          );
-          console.log('Film zur Merkliste hinzugefügt:', film);
-          response.end('Film zur Merkliste hinzugefügt');
-        });
-        break;
-      }
-
-      case 'DELETE': {
-        const id = url.searchParams.get('id');
-        if (!id) {
-          response.statusCode = 400;
-          response.end('ID fehlt');
-          return;
-        }
-        await db.run('DELETE FROM FilmFinder WHERE id = ?', [id]);
-        response.end('Film gelöscht');
-        break;
-      }
-
-      default:
-        response.statusCode = 405;
-        response.end('Methode nicht erlaubt');
-    }
-  } else {
-    response.statusCode = 404;
-    response.end('Pfad nicht gefunden');
-  }
+  speichereMerkliste(neueListe);
+  res.status(204).send(); // Kein Inhalt
 });
 
 // Server starten
-startServer();
+app.listen(PORT, () => {
+  console.log(`Server läuft auf http://localhost:${PORT}`);
+});

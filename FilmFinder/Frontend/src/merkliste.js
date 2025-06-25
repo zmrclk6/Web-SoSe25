@@ -11,6 +11,7 @@ async function ladeMerkliste() {
     merklisteDiv.innerHTML = "<p>Du hast noch keine Filme in deiner Merkliste.</p>";
     return;
   }
+
   gespeicherte.forEach((film) => {
     const filmEl = document.createElement("div");
     filmEl.className = "filmkarte";
@@ -27,15 +28,25 @@ async function ladeMerkliste() {
   document.querySelectorAll(".entfernen-btn").forEach((button) => {
     button.addEventListener("click", async (event) => {
       const id = event.target.getAttribute("data-id");
-      if (!id) return;
+      console.log("Entferne Film mit ID:", id); // Debug
 
-      await fetch(`http://localhost:3000/merkliste/${id}`, {
+      if (!id) {
+        alert("Fehler: Keine ID gefunden.");
+        return;
+      }
+
+      const res = await fetch(`http://localhost:3000/merkliste/${id}`, {
         method: "DELETE",
       });
-      
-      ladeMerkliste(); // Liste neu laden
+
+      if (res.ok) {
+        ladeMerkliste();
+      } else {
+        const err = await res.text();
+        alert("Fehler beim Entfernen: " + err);
+      }
     });
-  });
+  }); // <-- fehlende Klammer war hier!
 }
 
 // Film hinzufügen
@@ -68,7 +79,7 @@ async function filmHinzufügen(titel, poster, trailer) {
 // Beim Laden der Seite: Merkliste abrufen
 document.addEventListener("DOMContentLoaded", () => {
   ladeMerkliste();
-  // Beispiel: Formularbindung für manuelles Hinzufügen (optional)
+
   const addBtn = document.getElementById("filmHinzufuegenBtn");
   if (addBtn) {
     addBtn.addEventListener("click", () => {
