@@ -29,10 +29,10 @@ async function ladeMerkliste() {
       const id = event.target.getAttribute("data-id");
       if (!id) return;
 
-      await fetch(`http://localhost:3000/merkliste?id=${id}`, {
+      await fetch(`http://localhost:3000/merkliste/${id}`, {
         method: "DELETE",
       });
-
+      
       ladeMerkliste(); // Liste neu laden
     });
   });
@@ -68,7 +68,6 @@ async function filmHinzufügen(titel, poster, trailer) {
 // Beim Laden der Seite: Merkliste abrufen
 document.addEventListener("DOMContentLoaded", () => {
   ladeMerkliste();
-
   // Beispiel: Formularbindung für manuelles Hinzufügen (optional)
   const addBtn = document.getElementById("filmHinzufuegenBtn");
   if (addBtn) {
