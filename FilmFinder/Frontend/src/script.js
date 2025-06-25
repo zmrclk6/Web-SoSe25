@@ -468,3 +468,24 @@ function responseTextErfolgreich(text) {
 }
 
 requestTextWithGET('https://heintz-s.github.io/GIS-WS24/test.txt');
+// Am Ende von filmfinder.js:
+
+async function zurMerklisteHinzufuegen(film) {
+  const response = await fetch("http://localhost:3000/merkliste", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      Titel: film.titel,
+      Poster: film.poster,
+      Trailer: film.trailer,
+    }),
+  });
+
+  if (response.ok) {
+    alert(`📌 "${film.titel}" wurde zur Merkliste hinzugefügt!`);
+  } else {
+    alert("❌ Fehler beim Hinzufügen.");
+  }
+}

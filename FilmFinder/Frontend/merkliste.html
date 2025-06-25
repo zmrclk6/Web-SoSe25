@@ -5,41 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Merkliste</title>
   <link rel="stylesheet" href="css/styles.css">
-</head>
+  <script src="src/merkliste.js" defer></script></head>
 <body>
   <h1 class="animated-title">🎬Deine Merkliste🎬 </h1>
   <div id="merkliste" class="film-grid"></div>
 
   <a href="index.html" class="zurueck">⬅ Zurück zur Startseite</a>
-  <script>
-    async function ladeMerkliste() {
-      const response = await fetch("http://localhost:3000/merkliste"); //fragt die Merkliste vom lokalen Server (Node.js) ab
-      const gespeicherte = await response.json();
-  
-      const merklisteDiv = document.getElementById("merkliste");
-      merklisteDiv.innerHTML = "";
-  
-      if (gespeicherte.length === 0) {
-        merklisteDiv.innerHTML = "<p>Du hast noch keine Filme in deiner Merkliste.</p>";
-        return;
-      }
-  
-      gespeicherte.forEach((film, index) => {
-        const filmEl = document.createElement("div");
-        filmEl.className = "filmkarte";
-        filmEl.innerHTML = `
-          <img src="${film.Poster}" alt="${film.Titel}" class="poster">
-          <h3>${film.Titel}</h3>
-          <a href="${film.Trailer}" target="_blank">▶ Trailer ansehen</a><br>
-          <button class="entfernen-btn" data-index="${index}">❌ Entfernen</button>
-        `;
-        merklisteDiv.appendChild(filmEl);
-      });
-  
-    }
-  
-    ladeMerkliste();
-  </script>
-  
 </body>
 </html>
+

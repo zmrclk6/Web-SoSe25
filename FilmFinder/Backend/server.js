@@ -28,7 +28,6 @@ async function startServer() {
     console.log(`Server läuft unter http://${hostname}:${port}/`);
   });
 }
-
 const server = http.createServer(async (request, response) => {
   response.setHeader('Access-Control-Allow-Origin', '*');
   response.setHeader('Access-Control-Allow-Headers', '*');
@@ -67,8 +66,14 @@ const server = http.createServer(async (request, response) => {
       }
 
       case 'DELETE': {
-        await db.run('DELETE FROM FilmFinder');
-        response.end('Merkliste gelöscht');
+        const id = url.searchParams.get('id');
+        if (!id) {
+          response.statusCode = 400;
+          response.end('ID fehlt');
+          return;
+        }
+        await db.run('DELETE FROM FilmFinder WHERE id = ?', [id]);
+        response.end('Film gelöscht');
         break;
       }
 
@@ -81,4 +86,6 @@ const server = http.createServer(async (request, response) => {
     response.end('Pfad nicht gefunden');
   }
 });
+
+// Server starten
 startServer();
